@@ -15,7 +15,12 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.jsx', '.js', '.json', '.less']
+    extensions: ['', '.jsx', '.js', '.json'],
+    alias: {
+      // 'react': 'preact-compat',
+      // 'react-dom': 'preact-compat',
+      // 'react-addons-css-transition-group': 'rc-css-transition-group'
+    }
   },
 
   module: {
@@ -33,10 +38,6 @@ module.exports = {
         loader: 'babel'
       },
       {
-        test: /\.less$/,
-        loader: ExtractTextPlugin.extract('css?sourceMap!postcss!less?sourceMap')
-      },
-      {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('css?sourceMap!postcss')
       },
@@ -45,13 +46,17 @@ module.exports = {
         loader: 'json'
       },
       {
-        test: /\.(xml|html|txt)$/,
+        test: /\.(xml|txt)$/,
         loader: 'raw'
       },
       {
         test: /\.(svg|woff|ttf|eot)(\?.*)?$/i,
         loader: 'file-loader?name=assets/fonts/[name]_[hash:base64:5].[ext]'
-      }
+      },
+      {
+        test: /\.html$/,
+        loader: 'html'
+      },
     ]
   },
 
@@ -65,18 +70,20 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(ENV)
     }),
-    new HtmlWebpackPlugin()
-  ]).concat(ENV==='production' ? [
+    new HtmlWebpackPlugin({
+      template: 'src/index.html'
+    })
+  ]).concat(ENV === 'production' ? [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin()
   ] : []),
 
   stats: { colors: true },
 
-  devtool: ENV==='production' ? 'source-map' : 'inline-source-map',
+  devtool: ENV === 'production' ? 'source-map' : 'inline-source-map',
 
   devServer: {
-    port: process.env.PORT || 8080,
+    port: process.env.PORT || 8888,
     host: '0.0.0.0',
     colors: true,
     publicPath: '/',

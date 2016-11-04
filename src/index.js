@@ -1,14 +1,22 @@
-import { h, render } from 'preact';
-import { Provider } from 'preact-redux';
-import store from './store';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, combineReducers } from 'redux';
+// import store from './store';
 import App from './components/app';
-import './style';
-import styles from './style/pure-min.css'
+import { reducer as reduxFormReducer } from 'redux-form';
 
-render((
+const reducer = combineReducers({
+  form: reduxFormReducer // mounted under "form"
+});
+
+const store =
+  (window.devToolsExtension ? window.devToolsExtension()(createStore) : createStore)(reducer);
+
+ReactDOM.render((
   <div id="outer">
     <Provider store={store}>
-    <App />
+      <App />
     </Provider>
-    </div>
-), document.body);
+  </div>
+), document.getElementById('root'));

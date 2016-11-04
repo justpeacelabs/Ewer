@@ -1,0 +1,50 @@
+export const REGIONS = [
+  "Sagaing",
+  "Tanintharyi",
+  "Bago",
+  "Magway",
+  "Mandalay",
+  "Yangon",
+  "Ayeyarwady",
+  "Kachin",
+  "Kayah",
+  "Kayin",
+  "Chin",
+  "Mon",
+  "Rakhine",
+  "Shan",
+  "Nay Pyi Taw"
+];
+
+export const TOWNSHIPS = {
+  "Bago": [
+    "Bago",
+    "Daik-U",
+    "Htantabin",
+    "Kawa",
+    "Kyaukkyi",
+    "Kyauktaga",
+    "Nyaunglebin",
+    "Oktwin",
+    "Phyu",
+    "Shwegyin",
+    "Taungoo",
+    "Thanatpin",
+    "Waw",
+    "Yedashe",
+    "Gyobingauk",
+    "Letpadan",
+    "Minhla",
+    "Monyo",
+    "Nattalin",
+    "Okpho",
+    "Padaung",
+    "Paukkhaung",
+    "Paungde",
+    "Pyay",
+    "Shwedaung",
+    "Thayarwady",
+    "Thegon",
+    "Zigon"
+  ]
+};
