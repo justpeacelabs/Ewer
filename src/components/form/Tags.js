@@ -4,13 +4,16 @@ import { WithContext as ReactTags } from 'react-tag-input';
 
 export default class RumourTags extends React.Component {
   render() {
-    let suggestions = ["Banana", "Mango", "Pear", "Apricot"];
+    let suggestions = [];
     let val = this.props.input.value || this.props.defaultValue;
 
     return (
       <ReactTags tags={val}
         classNames={{
-          tagInputField: 'input is-medium is-fullwidth'
+          tagInput: 'margin-top-5',
+          tagInputField: 'input is-medium is-fullwidth',
+          tag: 'tag is-small',
+          remove: 'delete is-small hide-text'
         }}
         delimiters={[188, 13, 9]}
         suggestions={suggestions}
