@@ -2,62 +2,57 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { WithContext as ReactTags } from 'react-tag-input';
+const classNames = require('classnames');
 
 import { REGIONS, TOWNSHIPS } from './regions';
 import RumourDatePicker from './DatePicker';
 import RumourTags from './Tags';
+import validate from './validate';
+import renderSelectField from './selectField';
 
 let RumourFormFirstPage = (props) => {
-  const { selectedRegion, handleSubmit } = props;
+  const { selectedRegion, handleSubmit, pristine, reset, submitting } = props;
 
-  let townships = selectedRegion ? (
-    <p className="control">
-      <label htmlFor="township">Township</label>
-      <span className="select is-medium is-fullwidth">
-        <select id="township">
+  return (
+    <form onSubmit={handleSubmit}>
+      <Field name="region" component={renderSelectField} label="State/Region">
+        <option key="no-region"></option>
+        {
+          REGIONS.map(region => <option key={region}>{region}</option>)
+        }
+      </Field>
+      {
+        selectedRegion && TOWNSHIPS[selectedRegion] &&
+        <Field name="township" component={renderSelectField} label="Township">
           {
-            TOWNSHIPS[selectedRegion] &&
             TOWNSHIPS[selectedRegion]
               .map(township => <option key={township}>{township}</option>)
           }
-        </select>
-      </span>
-    </p>) : '';
-
-  return (
-    <section className="section">
-      <h1 className="title is-centered">Add a rumour</h1>
-      <form onSubmit={handleSubmit}>
-        <p className="control">
-          <label htmlFor="region">State/Region</label>
-          <span className="select is-medium is-fullwidth">
-            <Field name="region" component="select">
-              <option key="no-region"></option>
-              {
-                REGIONS.map(region => <option key={region}>{region}</option>)
-              }
-            </Field>
-          </span>
-        </p>
-        {townships}
-        <div className="control">
-          <label htmlFor="rumourDate">Date of the incident</label>
-          <Field name="rumourDate" component={RumourDatePicker} />
-        </div>
-        <div className="control is-fullwidth">
-          <label htmlFor="tags">Tags</label>
-          <Field name="rumourTags" defaultValue={[]} component={RumourTags} />
-        </div>
-        <button className="button is-medium is-fullwidth is-primary" type="submit">Next</button>
-      </form>
-    </section>
+        </Field>
+      }
+      <div className="control">
+        <label htmlFor="rumourDate">Date of the incident</label>
+        <Field name="rumourDate" component={RumourDatePicker} />
+      </div>
+      <div className="control is-fullwidth">
+        <label htmlFor="tags">Tags</label>
+        <Field name="rumourTags" defaultValue={[]} component={RumourTags} />
+      </div>
+      <button className={classNames({
+        button: true,
+        'is-medium': true,
+        'is-fullwidth': true,
+        'is-primary': true,
+        'is-disabled': submitting
+      })} disabled={submitting} type="submit">Next</button>
+    </form>
   );
 };
 
 RumourFormFirstPage = reduxForm({
   form: 'wizard',
   destroyOnUnmount: false,
-  // validate
+  validate
 })(RumourFormFirstPage);
 
 const selector = formValueSelector('wizard');

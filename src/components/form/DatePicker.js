@@ -1,41 +1,22 @@
 import React from 'react';
 const DatePicker = require('react-datepicker');
 const moment = require('moment');
+const classNames = require('classnames');
 
 require('react-datepicker/dist/react-datepicker.css');
-
-// class RumourDate extends React.Component {
-//   displayName: 'Date of incident'
-
-//   constructor() {
-//     super();
-//     this.state = {
-//       startDate: moment()
-//     };
-
-//     this.handleChange = this.handleChange.bind(this);
-//   }
-
-//   handleChange(date) {
-//     this.setState({
-//       startDate: date
-//     });
-//   }
-
-//   render() {
-//     return <DatePicker
-//       selected={this.state.startDate}
-//       onChange={this.handleChange} />;
-//   }
-// }
 
 const RumourDatePicker = ({input, placeholder, defaultValue, meta: {touched, error} }) => (
   <div className="is-fullwidth">
     <DatePicker {...input}
-      className="input is-medium is-fullwidth input-borderless"
+      className={classNames({
+        input: true,
+        'is-medium': true,
+        'is-fullwidth': true,
+        'is-danger': !!(touched && error)
+      })}
       dateForm="MM/DD/YYYY"
       selected={input.value ? moment(input.value) : null} />
-    {touched && error && <span>{error}</span>}
+    {touched && error && <span className="help is-danger">{error}</span>}
   </div>
 );
 
