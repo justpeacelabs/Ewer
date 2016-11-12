@@ -25,13 +25,13 @@ export default class ReportRumour extends React.Component {
   render() {
     const { onSubmit } = this.props;
     const { page } = this.state;
-    return (<div>
-      <section className="section">
+    return (
+      <section className="section flexContainer">
         <h1 className="title is-centered">Report a rumour</h1>
         {page === 1 && <RumourFormFirstPage onSubmit={this.nextPage} />}
         {page === 2 && <RumourFormSecondPage previousPage={this.previousPage} onSubmit={this.nextPage} />}
         {page === 3 && <RumourFormThirdPage previousPage={this.previousPage} onSubmit={onSubmit} />}
       </section>
-    </div>);
+    );
   }
 }

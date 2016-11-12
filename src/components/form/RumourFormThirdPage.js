@@ -1,27 +1,34 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { WithContext as ReactTags } from 'react-tag-input';
 import { REGIONS, TOWNSHIPS } from './regions';
 
-const RumourFormSecondPage = (props) => {
+let RumourFormThirdPage = (props) => {
   const { handleSubmit, previousPage } = props;
   return (
     <form onSubmit={handleSubmit}>
-    <h3>You are about to report the following rumour:</h3>
-      <p className="control is-fullwidth">
-        <label htmlFor="description">Describe the rumour</label>
-        <textarea
-          name="description"
-          placeholder="Try to be as clear as possible"
-          className="textarea"></textarea>
-      </p>
+
       <button className="button is-medium is-fullwidth is-primary" type="submit">Report</button>
     </form>
   );
 };
 
-export default reduxForm({
+const selector = formValueSelector('wizard');
+
+RumourFormThirdPage = reduxForm({
   form: 'wizard',
   destroyOnUnmount: false,
   // validate
-})(RumourFormSecondPage);
+})(RumourFormThirdPage);
+
+RumourFormThirdPage = connect(
+  state => ({
+    selectedRegion: selector(state, 'region'),
+    selectedTownship: selector(state, 'township'),
+    selectedDate: selector(state, 'rumourDate'),
+    selectedTags: selector(state, 'tags')
+  })
+)(RumourFormThirdPage);
+
+export default RumourFormThirdPage;

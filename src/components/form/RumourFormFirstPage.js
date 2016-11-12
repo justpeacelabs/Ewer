@@ -14,45 +14,53 @@ let RumourFormFirstPage = (props) => {
   const { selectedRegion, handleSubmit, pristine, reset, submitting } = props;
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="flexContainer">
       <Field name="region" component={renderSelectField} label="State/Region">
-        <option key="no-region"></option>
+        <option key="no-region" selected></option>
         {
           REGIONS.map(region => <option key={region}>{region}</option>)
         }
       </Field>
       {
         selectedRegion && TOWNSHIPS[selectedRegion] &&
-        <Field name="township" component={renderSelectField} label="Township">
-          {
-            TOWNSHIPS[selectedRegion]
-              .map(township => <option key={township}>{township}</option>)
-          }
-        </Field>
+          <Field name="township" component={renderSelectField} label="Township">
+            <option key="no-township" selected></option>
+            {
+              TOWNSHIPS[selectedRegion]
+                .map(township => <option key={township}>{township}</option>)
+            }
+          </Field>
       }
       <div className="control">
         <label htmlFor="rumourDate">Date of the incident</label>
         <Field name="rumourDate" component={RumourDatePicker} />
       </div>
-      <div className="control is-fullwidth">
+
+      <div className="control is-fullwidth flex-1">
         <label htmlFor="tags">Tags</label>
         <Field name="rumourTags" defaultValue={[]} component={RumourTags} />
       </div>
-      <button className={classNames({
-        button: true,
-        'is-medium': true,
-        'is-fullwidth': true,
-        'is-primary': true,
-        'is-disabled': submitting
-      })} disabled={submitting} type="submit">Next</button>
-    </form>
+
+      <div className="columns is-mobile">
+        <div className="column">
+          <button className={classNames({
+            button: true,
+            'is-medium': true,
+            'is-primary': true,
+            'is-fullwidth': true,
+            'is-disabled': submitting
+          })} disabled={submitting} type="submit">Next</button>
+      </div>
+    </div>
+
+  </form>
   );
 };
 
 RumourFormFirstPage = reduxForm({
   form: 'wizard',
   destroyOnUnmount: false,
-  validate
+  // validate
 })(RumourFormFirstPage);
 
 const selector = formValueSelector('wizard');

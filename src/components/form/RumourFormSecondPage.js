@@ -2,6 +2,8 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { WithContext as ReactTags } from 'react-tag-input';
 import { REGIONS, TOWNSHIPS } from './regions';
+import classNames from 'classnames';
+import RumourDescription from './RumourDescription';
 
 const PLACES = [
   'Teashop',
@@ -15,7 +17,7 @@ const PLACES = [
 ].sort();
 
 const RumourFormSecondPage = ({ handleSubmit, previousPage }) => (
-  <form onSubmit={handleSubmit}>
+  <form onSubmit={handleSubmit} className="flexContainer">
     <p className="control">
       <label htmlFor="region">Where did you hear the rumour?</label>
       <span className="select is-medium is-fullwidth">
@@ -26,14 +28,31 @@ const RumourFormSecondPage = ({ handleSubmit, previousPage }) => (
         </Field>
       </span>
     </p>
-    <p className="control is-fullwidth">
-      <label htmlFor="description">Describe the rumour</label>
-      <textarea
-        name="description"
-        placeholder="Try to be as clear as possible"
-        className="textarea"></textarea>
-    </p>
-    <button className="button is-medium is-fullwidth is-primary" type="submit">Next</button>
+    <Field name="description" component={RumourDescription} label="Describe the rumour" />
+    <div className="columns is-mobile">
+      <div className="column is-narrow">
+        <a className={classNames({
+          button: true,
+          'is-medium': true,
+          'is-fullwidth': true,
+        })}
+      onClick={previousPage}>
+        <span className="icon">
+          <i className="fa fa-arrow-left"></i>
+        </span>
+        <span>Back</span>
+      </a>
+    </div>
+    <div className="column">
+      <button className={classNames({
+        button: true,
+        'is-medium': true,
+        'is-primary': true,
+        'is-fullwidth': true,
+      })} type="submit">Next</button>
+  </div>
+    </div>
+
   </form>
 );
 

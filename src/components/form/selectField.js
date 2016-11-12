@@ -4,7 +4,7 @@ const classNames = require('classnames');
 const renderSelectField = ({ input, label, type, meta: { touched, error }, children }) => (
   <p className="control">
     <label>{label}</label>
-    <span className="select is-medium is-fullwidth" style={{height: '60px'}}>
+    <span className="select is-medium is-fullwidth" style={{ height: '50px' }}>
       <select {...input} className={classNames({
         'is-danger': !!(touched && error)
       })}>

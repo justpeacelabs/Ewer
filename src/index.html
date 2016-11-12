@@ -3,15 +3,34 @@
 
 <head>
 	<title class="next-head">Rumours</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css" />
-	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 	<style>
+		html, body, #root, #outer, #app, #app > section {
+			height: 100%;
+		}
 		.is-fullwidth .react-datepicker__input-container {
 			width: 100%;
 		}
 
-		.input-borderless {
-			border: 0;
+		.height-100 {
+			height: 100%;
+		}
+
+		.height-90 {
+			height: 90%;
+		}
+
+		.flexContainer {
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+		}
+
+		.flex-1 {
+			flex: 1;
 		}
 
 		.hide-text {
