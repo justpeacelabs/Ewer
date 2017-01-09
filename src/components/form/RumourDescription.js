@@ -1,4 +1,5 @@
 import React from 'react';
+import TextareaAutosize from 'react-autosize-textarea';
 
 const MAX_LENGTH = 1000;
 
@@ -21,15 +22,17 @@ export default class RumourDescription extends React.Component {
   render() {
     const charsLeft = MAX_LENGTH - this.state.charsWritten;
     const input = this.props.input;
-    return  (
-      <div className="pure-u-1 pure-u-md-1-2 row">
-        <label>{this.props.label}</label>
-        <textarea
+    return (
+      <div>
+        <TextareaAutosize
           placeholder="Try to be as clear as possible"
           className="textarea"
           style={{
-            flex: 1,
-            height: '80%'
+            width: '100%',
+            minHeight: '200px',
+            boxSizing: 'border-box',
+            border: 'solid 5px #3E606F',
+            backgroundColor: '#EAF5D3'
           }}
           onChange={e => {
             const val = e.target.value;
@@ -37,11 +40,13 @@ export default class RumourDescription extends React.Component {
               charsWritten: val.length
             });
             input.onChange(val);
-          }}/>
-        <span
+          } }
+          onResize={(e) => { } }
+          />
+        <div
           className="is-pulled-right">
           {charsLeft} characters left
-        </span>
+        </div>
         {this.props.meta.touched && this.props.meta.error && <span className="help is-danger">{error}</span>}
       </div>);
   }

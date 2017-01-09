@@ -5,7 +5,8 @@ import { WithContext as ReactTags } from 'react-tag-input';
 const tagClassNames = {
   tagInputField: 'input is-medium is-fullwidth',
   tag: 'tag is-small',
-  remove: 'delete is-small hide-text'
+  remove: 'delete is-small hide-text',
+  selected: 'selected-tags-container'
 };
 
 const RumourTags = ({input, defaultValue}) => {
@@ -22,6 +23,11 @@ const RumourTags = ({input, defaultValue}) => {
         input.onChange(val);
       } }
       handleAddition={tag => {
+        tag = tag.trim();
+        if (val.length >= 3) {
+          return;
+        }
+
         input.onChange(val.concat({
           id: val.length + 1,
           text: tag

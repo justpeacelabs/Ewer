@@ -11,8 +11,8 @@ import RowField from './RowField';
 import validate from './validate';
 import renderSelectField from './selectField';
 
-const regionOptions = REGIONS.map(region => <option key={region}>{region}</option>);
-const PLACES = [
+const regionOptions = REGIONS.map(r => <option key={r}>{r}</option>);
+const placesOptions = [
   'Teashop',
   'Facebook',
   'Community Leader',
@@ -21,67 +21,64 @@ const PLACES = [
   'School',
   'Religious Leader',
   'Other'
-].sort();
-const placesOptions = PLACES.map(place => <option key={place}>{place}</option>);
+].sort().map(p => <option key={p}>{p}</option>);
 
-let RumourFormFirstPage = (props) => {
-  const { selectedRegion, handleSubmit, pristine, reset, submitting } = props;
+let RumourFormFirstPage = ({ selectedRegion, handleSubmit, pristine, reset, submitting }) => (
+  <form
+    onSubmit={handleSubmit}
+    className="pure-form pure-form-stacked is-fullheight">
+    <div className="pure-g grid-container">
 
-  return (
-    <form onSubmit={handleSubmit} className="pure-form pure-form-stacked is-fullheight">
-      <div className="pure-g grid-container">
-
-        <h3 className="pure-u-1 pure-u-md-1-2">Report a rumour</h3>
-        <RowField text="State/Region">
-          <Field name="region" component={renderSelectField}>
-            <option key="no-region" selected></option>
-            {regionOptions}
+      <h3 className="pure-u-1 pure-u-md-1-2 row">Report a rumour</h3>
+      <RowField text="State/Region">
+        <Field name="region" component={renderSelectField}>
+          <option key="no-region" selected></option>
+          {regionOptions}
+        </Field>
+      </RowField>
+      {
+        selectedRegion && TOWNSHIPS[selectedRegion] &&
+        <RowField text="Township">
+          <Field name="township" component={renderSelectField}>
+            <option key="no-township" selected></option>
+            {
+              TOWNSHIPS[selectedRegion]
+                .map(t => <option key={t}>{t}</option>)
+            }
           </Field>
         </RowField>
-        {
-          selectedRegion && TOWNSHIPS[selectedRegion] &&
-          <RowField text="Township">
-            <Field name="township" component={renderSelectField} label="">
-              <option key="no-township" selected></option>
-              {
-                TOWNSHIPS[selectedRegion]
-                  .map(township => <option key={township}>{township}</option>)
-              }
-            </Field>
-          </RowField>
-        }
+      }
 
-        <RowField text="Date of the incident">
-          <Field name="rumourDate" component={RumourDatePicker} />
-        </RowField>
+      <RowField text="Date of the incident">
+        <Field name="rumourDate" component={RumourDatePicker} />
+      </RowField>
 
-        <RowField text="Tags">
-          <Field name="rumourTags" defaultValue={[]} component={RumourTags} />
-        </RowField>
+      <RowField text="Tags">
+        <Field name="rumourTags" defaultValue={[]} component={RumourTags} />
+      </RowField>
 
-        <RowField text="Where did you hear the rumour?">
-          <Field
-            name="place-heard"
-            className="expander"
-            component={renderSelectField}>
-            {placesOptions}
-          </Field>
-        </RowField>
+      <RowField text="Where did you hear the rumour?">
+        <Field
+          name="place-heard"
+          className="expander"
+          component={renderSelectField}>
+          {placesOptions}
+        </Field>
+      </RowField>
 
-        <div className="pure-u-1 pure-u-md-1-2 row color1">
-          <div className="column">
-            <button className={classNames({
-              'is-button': true,
-              'is-fullwidth': true,
-              'is-disabled': submitting
-            })} disabled={submitting} type="submit">Next</button>
-          </div>
+      <div className="pure-u-1 pure-u-md-1-2 row color1">
+        <div className="column">
+          <button className={classNames({
+            'is-button': true,
+            'is-fullwidth': true,
+            'is-disabled': submitting
+          })} disabled={submitting} type="submit">Next</button>
         </div>
       </div>
+    </div>
 
-    </form>
-  );
-};
+  </form>
+);
 
 RumourFormFirstPage = reduxForm({
   form: 'wizard',
