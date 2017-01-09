@@ -3,7 +3,6 @@ import { Field, reduxForm } from 'redux-form';
 import { WithContext as ReactTags } from 'react-tag-input';
 
 const tagClassNames = {
-  tagInput: 'margin-top-5',
   tagInputField: 'input is-medium is-fullwidth',
   tag: 'tag is-small',
   remove: 'delete is-small hide-text'

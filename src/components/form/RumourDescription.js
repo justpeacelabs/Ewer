@@ -22,7 +22,7 @@ export default class RumourDescription extends React.Component {
     const charsLeft = MAX_LENGTH - this.state.charsWritten;
     const input = this.props.input;
     return  (
-      <p className="control flex-1">
+      <div className="pure-u-1 pure-u-md-1-2 row">
         <label>{this.props.label}</label>
         <textarea
           placeholder="Try to be as clear as possible"
@@ -43,7 +43,7 @@ export default class RumourDescription extends React.Component {
           {charsLeft} characters left
         </span>
         {this.props.meta.touched && this.props.meta.error && <span className="help is-danger">{error}</span>}
-      </p>);
+      </div>);
   }
 }
 

@@ -33,7 +33,6 @@
     "chai": "^3.5.0",
     "core-js": "^2.4.0",
     "cross-env": "^1.0.8",
-    "css-loader": "^0.25.0",
     "eslint": "^3.7.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
@@ -53,20 +52,21 @@
     "superstatic": "^4.0.2",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-server": "^1.16.2",
+    "css-loader": "^0.26.1"
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "immutability-helper": "^2.0.0",
-    "react": "^15.3.2",
+    "firebase": "^3.6.4",
+    "node-sass": "^4.1.1",
+    "postcss-loader": "^1.2.1",
+    "preact-compat": "^3.9.4",
     "react-addons-css-transition-group": "^15.3.2",
-    "react-datepicker": "0.34.0",
-    "react-dom": "^15.3.2",
-    "react-redux": "^4.4.5",
-    "react-tag-input": "4.4.0",
+    "react-datepicker": "^0.39.0",
+    "react-redux": "^5.0.1",
+    "react-tag-input": "^4.6.2",
     "redux": "^3.5.2",
-    "redux-form": "6.2.0",
-    "toolbox-loader": "^0.0.3"
+    "redux-form": "^6.4.3"
   },
   "main": "webpack.config.babel.js"
 }

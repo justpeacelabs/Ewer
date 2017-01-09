@@ -17,8 +17,8 @@ module.exports = {
   resolve: {
     extensions: ['', '.jsx', '.js', '.json'],
     alias: {
-      // 'react': 'preact-compat',
-      // 'react-dom': 'preact-compat',
+      'react': 'preact-compat',
+      'react-dom': 'preact-compat',
       // 'react-addons-css-transition-group': 'rc-css-transition-group'
     }
   },
@@ -61,7 +61,7 @@ module.exports = {
   },
 
   postcss: () => [
-    autoprefixer({ browsers: 'last 2 versions' })
+    autoprefixer({ browsers: '> 4% in MM' })
   ],
 
   plugins: ([
