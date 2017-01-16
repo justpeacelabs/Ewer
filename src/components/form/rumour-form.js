@@ -26,11 +26,16 @@ export default class ReportRumour extends React.Component {
     const { onSubmit } = this.props;
     const { page } = this.state;
     return (
-      <section>
-        {page === 1 && <RumourFormFirstPage onSubmit={this.nextPage} />}
-        {page === 2 && <RumourFormSecondPage previousPage={this.previousPage} onSubmit={this.nextPage} />}
-        {page === 3 && <RumourFormThirdPage previousPage={this.previousPage} onSubmit={onSubmit} />}
-      </section>
+      <div className="is-fullheight">
+
+        <div className="header">
+          <i class="fa fa-comments" aria-hidden="true"></i>&nbsp;MY Rumours</div>
+        <section style={{ height: 'calc(100% - 100px)' }}>
+          {page === 1 && <RumourFormFirstPage onSubmit={this.nextPage} />}
+          {page === 2 && <RumourFormSecondPage previousPage={this.previousPage} onSubmit={this.nextPage} />}
+          {page === 3 && <RumourFormThirdPage previousPage={this.previousPage} onSubmit={onSubmit} />}
+        </section>
+      </div>
     );
   }
 }

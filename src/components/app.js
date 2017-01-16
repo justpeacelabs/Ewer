@@ -11,9 +11,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div id="app" className="container">
-        <div className="header">MY Rumours</div>
-
-        <AddRumour />
+        {this.props.children}
       </div>
     );
   }

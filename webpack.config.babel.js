@@ -50,18 +50,26 @@ module.exports = {
         loader: 'raw'
       },
       {
-        test: /\.(svg|woff|ttf|eot)(\?.*)?$/i,
+        test: /\.(woff|ttf|eot)(\?.*)?$/i,
         loader: 'file-loader?name=assets/fonts/[name]_[hash:base64:5].[ext]'
       },
       {
         test: /\.html$/,
         loader: 'html'
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+          'file?hash=sha512&digest=hex&name=[hash].[ext]',
+          'image-webpack'
+        ]
       }
     ]
   },
 
   postcss: () => [
-    autoprefixer({ browsers: '> 4% in MM' })
+    autoprefixer(),
+    require('postcss-flexbugs-fixes')
   ],
 
   plugins: ([
