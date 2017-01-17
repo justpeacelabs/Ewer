@@ -30,11 +30,22 @@ let RumourFormFirstPage = (
 ) =>
   <form onSubmit={
     handleSubmit
-  } className="pure-form pure-form-stacked is-fullheight">
+  } className="scrollable is-fullheight">
+    <div className="pure-g section-header">
+      <div class="section-title pure-u-1-5">
+        &#x25C0;
+        </div>
+      <div class="pure-u-3-5 section-title">
+        Report a rumour
+        </div>
+      <div class="pure-u-1-5 section-title">&nbsp;
+        </div>
+    </div>
     <div className="pure-g grid-container">
-      <h3 className="pure-u-1 pure-u-md-1-2 row" style={
-        { paddingBottom: 0 }
-      }>Report a rumour</h3>
+      <div className="pure-u-1 fullw-input-container row" style={{padding:0}}>
+        <Field name="rumourName" component="input" type="text" placeholder="Enter a name for this rumor" className="fullw-input"/>
+      </div>
+
       <RowField text="State/Region">
         <Field name="region" component={renderSelectField}>
           <option key="no-region" selected></option>
@@ -61,17 +72,17 @@ let RumourFormFirstPage = (
         </Field>
       </RowField>
     </div>
-      <div className="pure-u-1 pure-u-md-1-2 footer">
-        <div className="column">
-          <button className={
-            classNames({
-              "is-button": true,
-              "is-fullwidth": true,
-              "is-disabled": submitting
-            })
-          } disabled={submitting} type="submit">Next</button>
-        </div>
+    <div className="pure-u-1 pure-u-md-1-2 footer">
+      <div className="column">
+        <button className={
+          classNames({
+            "is-button": true,
+            "is-fullwidth": true,
+            "is-disabled": submitting
+          })
+        } disabled={submitting} type="submit">Next</button>
       </div>
+    </div>
   </form>;
 
 RumourFormFirstPage = reduxForm({

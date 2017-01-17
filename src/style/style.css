@@ -10,12 +10,12 @@ body,
     outline: none;
 }
 
-#app > section {
-    height: calc(100% - 100px);
+section {
+    height: calc(100% - 50px);
 }
 
 body {
-    background-color: #FCFFF5;
+    background-color: #00838F;
     color: #193441;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -49,8 +49,8 @@ body {
     display: flex;
     align-items: center;
     height: 30px;
-    background-color: #3E606F;
-    color: #FCFFF5;
+    background-color: #0097A7;
+    color: #fff;
     padding-left: 5px;
 }
 
@@ -59,22 +59,25 @@ body {
     justify-content: flex-end;
     align-items: center;
     height: 30px;
-    background-color: #3E606F;
-    color: #FCFFF5;
+    background-color: #0097A7;
+    color: #fff;
     padding-right: 5px;
 }
 
 label {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
     display: block;
+    opacity: 0.8;
 }
 
 .color1 {
     background-color: #D1DBBD;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
+    color: #006064;
     display: block;
     margin: 0;
     width: 100%;
@@ -86,8 +89,8 @@ input[type="text"] {
     font-size: 16px;
     box-sizing: border-box;
     padding: 10px 5px;
-    background-color: #EAF5D3;
-    border: solid 5px #3E606F;
+    background-color: #E0F7FA;
+    border: solid 5px #0097A7;
     border-top: 0;
     transition: border 0.3s;
 }
@@ -114,14 +117,14 @@ input[type="text"]:focus {
     font-size: 16px;
     box-sizing: border-box;
     padding: 10px 5px;
-    border: solid 5px #3E606F;
-    background-color: #3E606F;
-    color: #FCFFF5;
+    border: solid 5px #FFAB40;
+    background-color: #FFAB40;
+    color: #E65100;
     text-transform: uppercase;
 }
 
 .header {
-    background-color: #3E606F;
+    background-color: #0097A7;
     color: #FCFFF5;
     text-align: center;
     line-height: 50px;
@@ -133,14 +136,14 @@ input[type="text"]:focus {
 }
 
 .select-wrapper {
-    background-color: #EAF5D3;
+    background-color: #E0F7FA;
     display: inline-block;
     position: relative;
     width: 100%;
 }
 
 .select-wrapper::after {
-    border: 3px solid #3E606F;
+    border: 3px solid #0097A7;
     border-right: 0;
     border-top: 0;
     content: " ";
@@ -165,8 +168,9 @@ select {
     font-size: 16px;
     box-sizing: border-box;
     padding: 10px 5px;
-    border: solid 5px #3E606F;
+    border: solid 5px #0097A7;
     border-top: 0;
+    color: #006064;
 }
 
 .select-wrapper:focus {
@@ -180,10 +184,6 @@ select {
     padding: 2px 5px;
     margin-right: 5px;
     font-size: 14px;
-}
-
-.height-90 {
-    height: 90%;
 }
 
 .flexContainer {
@@ -255,25 +255,25 @@ select {
     box-sizing: border-box;
     padding: 15px 7px !important;
     border-top: 0;
-    background-color: #fff !important;
+    background-color: #E0F7FA !important;
     opacity: 0.7 !important;
     border: 0 !important;
     width: 80% !important;
     margin-bottom: 10px !important;
     font-weight: normal !important;
-    color: #4F3910 !important;
+    color: #006064 !important;
 }
 
 .signin-submit {
     box-sizing: border-box;
     padding: 15px 7px;
-    background-color: #fff5a2 !important;
+    background-color: #FFAB40 !important;
     border: 0 !important;
     width: 80% !important;
     margin-top: 20px;
     font-weight: normal;
     font-weight: bold;
-    color: #4F3910 !important;
+    color: #E65100 !important;
 }
 
 .signin-container2 {
@@ -293,4 +293,44 @@ select {
     position: absolute;
     bottom: 0;
     height: 50px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.75);
+    background-color: #FFAB40;
+}
+
+.scrollable {
+    overflow: scroll;
+}
+
+.section-header {
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+}
+
+.section-title {
+    display: block;
+}
+
+.fullw-input-fullw-input {
+    width: 100%;
+    padding: 0;
+}
+
+.fullw-input {
+    background-color: #E0F7FA !important;
+    border: 2px solid #E0F7FA !important;
+    color: #006064;
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder,
+.fullw-input::placeholder {
+    color: #006064;
+    font-style: italic;
+    opacity: 0.6;
 }
