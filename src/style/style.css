@@ -131,7 +131,6 @@ input[type="text"]:focus {
     width: 100%;
     height: 50px;
     font-size: 24px;
-    font-family: 'Raleway';
     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.75);
 }
 
@@ -286,7 +285,7 @@ select {
 
 .logo-img {
     width: 140px;
-    margin-bottom: 60px;
+    /*margin-bottom: 60px;*/
 }
 
 .footer {
@@ -298,7 +297,7 @@ select {
 }
 
 .scrollable {
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 .section-header {

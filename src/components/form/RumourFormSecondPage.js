@@ -3,11 +3,13 @@ import { Field, reduxForm } from 'redux-form';
 import classNames from 'classnames';
 import RumourDescription from './RumourDescription';
 import RowField from './RowField';
+import SectionHeader from "./sectionHeader";
 
 const RumourFormSecondPage = ({ handleSubmit, submitting, previousPage }) => (
   <form
     onSubmit={handleSubmit}
-    className="pure-form pure-form-stacked is-fullheight">
+    className="scrollable is-fullheight">
+    <SectionHeader />
     <div className="pure-g grid-container">
       <RowField text="Describe the rumour" className="expander">
         <Field name="description" component={RumourDescription} />

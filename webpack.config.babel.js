@@ -6,7 +6,7 @@ import autoprefixer from 'autoprefixer';
 const ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
-  entry: './src/index.js',
+  entry: ['babel-polyfill', './src/index.js'],
 
   output: {
     path: './build',
@@ -84,7 +84,16 @@ module.exports = {
     })
   ]).concat(ENV === 'production' ? [
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin()
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      mangle: true,
+      compress: {
+        dead_code: true, // eslint-disable-line camelcase
+        screw_ie8: true, // eslint-disable-line camelcase
+        unused: true,
+        warnings: false
+      }
+    })
   ] : []),
 
   stats: { colors: true },

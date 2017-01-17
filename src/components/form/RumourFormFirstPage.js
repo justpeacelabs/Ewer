@@ -10,6 +10,7 @@ import RumourTags from "./Tags";
 import RowField from "./RowField";
 import validate from "./validate";
 import renderSelectField from "./selectField";
+import SectionHeader from "./sectionHeader";
 
 const regionOptions = REGIONS.map(r => <option key={r}>{r}</option>);
 const placesOptions = [
@@ -31,19 +32,10 @@ let RumourFormFirstPage = (
   <form onSubmit={
     handleSubmit
   } className="scrollable is-fullheight">
-    <div className="pure-g section-header">
-      <div class="section-title pure-u-1-5">
-        &#x25C0;
-        </div>
-      <div class="pure-u-3-5 section-title">
-        Report a rumour
-        </div>
-      <div class="pure-u-1-5 section-title">&nbsp;
-        </div>
-    </div>
+    <SectionHeader />
     <div className="pure-g grid-container">
-      <div className="pure-u-1 fullw-input-container row" style={{padding:0}}>
-        <Field name="rumourName" component="input" type="text" placeholder="Enter a name for this rumor" className="fullw-input"/>
+      <div className="pure-u-1 fullw-input-container row" style={{ padding: 0 }}>
+        <Field name="rumourName" component="input" type="text" placeholder="Enter a name for this rumor" className="fullw-input" />
       </div>
 
       <RowField text="State/Region">
