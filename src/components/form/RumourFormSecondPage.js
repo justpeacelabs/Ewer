@@ -9,37 +9,37 @@ const RumourFormSecondPage = ({ handleSubmit, submitting, previousPage }) => (
   <form
     onSubmit={handleSubmit}
     className="scrollable is-fullheight">
-    <SectionHeader />
-    <div className="pure-g grid-container">
-      <RowField text="Describe the rumour" className="expander">
+    <SectionHeader previousPage={previousPage} />
+    <div className="pure-g grid-container" style={{height: 'calc(100% - 120px)'}}>
+      <RowField text="Describe the rumour" className="is-fullheight">
         <Field name="description" component={RumourDescription} />
       </RowField>
-      <div className="pure-g pure-u-1 row color1 ">
-        <div className="pure-u-1-3 pure-u-md-1-2" style="padding-right:5px;">
-          <button
-            className="is-button is-fullwidth"
-            onClick={previousPage}>
-            <span className="icon">
-              <i className="fa fa-arrow-left"></i>
-            </span>
-            <span>&nbsp;Back</span>
-          </button>
-        </div>
-        <div className="pure-u-2-3 pure-u-md-1-2" style="padding-left:5px;">
-          <button className={classNames({
-            'is-button': true,
-            'is-fullwidth': true,
-            'is-disabled': submitting
-          })} disabled={submitting} type="submit">Next</button>
+
+      <div className="pure-u-1 pure-u-md-1-2 footer">
+        <div className="column">
+          <button className={
+            classNames({
+              "is-button": true,
+              "is-fullwidth": true,
+              "is-disabled": submitting
+            })
+          } disabled={submitting} type="submit">Next</button>
         </div>
       </div>
     </div>
-
   </form>
 );
 
 export default reduxForm({
   form: 'wizard',              // <------ same form name
   destroyOnUnmount: false,     // <------ preserve form data
-  // validate
+  validate: values => {
+    const errors = {};
+
+    if (!values.description) {
+      errors.description = "Required field";
+    }
+
+    return errors;
+  }
 })(RumourFormSecondPage);

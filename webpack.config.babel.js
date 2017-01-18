@@ -6,12 +6,20 @@ import autoprefixer from 'autoprefixer';
 const ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
-  entry: ['babel-polyfill', './src/index.js'],
-
+  entry: {
+    vendor: './src/vendor.js',
+    main: './src/index.js'
+  },
   output: {
     path: './build',
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: '[name].js'
+  },
+
+  externals: {
+    // require("jquery") is external and available
+    //  on the global var jQuery
+    "firebase": "firebase"
   },
 
   resolve: {
@@ -75,7 +83,6 @@ module.exports = {
   plugins: ([
     new webpack.NoErrorsPlugin(),
     new ExtractTextPlugin('style.css', { allChunks: true }),
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /my/),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(ENV)
     }),
@@ -83,6 +90,11 @@ module.exports = {
       template: 'src/index.html'
     })
   ]).concat(ENV === 'production' ? [
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /my/),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity
+    }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
@@ -92,6 +104,9 @@ module.exports = {
         screw_ie8: true, // eslint-disable-line camelcase
         unused: true,
         warnings: false
+      },
+      output: {
+        comments: false
       }
     })
   ] : []),

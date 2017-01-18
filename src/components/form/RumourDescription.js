@@ -1,16 +1,19 @@
 import React from 'react';
+import classnames from 'classnames';
 import TextareaAutosize from 'react-autosize-textarea';
 
 const MAX_LENGTH = 1000;
+const noop = function () { };
 
 export default class RumourDescription extends React.Component {
   constructor() {
     super();
-    this.taChange = this.taChange.bind(this);
 
     this.state = {
       charsWritten: 0
     };
+
+    this.taChange = this.taChange.bind(this);
   }
 
   taChange(e) {
@@ -21,19 +24,15 @@ export default class RumourDescription extends React.Component {
 
   render() {
     const charsLeft = MAX_LENGTH - this.state.charsWritten;
-    const input = this.props.input;
+    const {input, meta: {touched, error}} = this.props;
     return (
-      <div>
+      <div className="is-fullheight" >
         <TextareaAutosize
           placeholder="Try to be as clear as possible"
-          className="textarea"
-          style={{
-            width: '100%',
-            minHeight: '200px',
-            boxSizing: 'border-box',
-            border: 'solid 5px #3E606F',
-            backgroundColor: '#EAF5D3'
-          }}
+          className={classnames({
+            'is-danger-field': !!(touched && error),
+            'is-fullheight': true
+          })}
           onChange={e => {
             const val = e.target.value;
             this.setState({
@@ -41,14 +40,13 @@ export default class RumourDescription extends React.Component {
             });
             input.onChange(val);
           } }
-          onResize={(e) => { } }
+          onResize={noop}
           />
-        <div
-          className="is-pulled-right">
+        {touched && error && <div className="help is-danger">{error}</div>}
+        <div className="is-pulled-right">
           {charsLeft} characters left
         </div>
-        {this.props.meta.touched && this.props.meta.error && <span className="help is-danger">{error}</span>}
-      </div>);
+      </div >);
   }
 }
 

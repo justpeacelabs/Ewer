@@ -9,6 +9,9 @@ import { routerMiddleware, routerReducer, syncHistoryWithStore } from 'react-rou
 import { reducer as reduxFormReducer } from 'redux-form';
 import { initAuth, authReducer } from './components/auth';
 import { getRoutes } from './routes';
+import injectTapEventPlugin from 'preact-tap-event-plugin';
+
+injectTapEventPlugin();
 
 const reducer = combineReducers({
   form: reduxFormReducer,

@@ -6,17 +6,17 @@ const classNames = require('classnames');
 require('react-datepicker/dist/react-datepicker.css');
 
 const RumourDatePicker = ({input, placeholder, defaultValue, meta: {touched, error} }) => (
-  <div className="is-fullwidth">
+  <div className="is-fullwidth select-wrapper">
     <DatePicker {...input}
       className={classNames({
         input: true,
         'is-medium': true,
         'is-fullwidth': true,
-        'is-danger': !!(touched && error)
+        'is-danger-field': !!(touched && error)
       })}
       dateForm="MM/DD/YYYY"
       selected={input.value ? moment(input.value) : null} />
-    {touched && error && <span className="help is-danger">{error}</span>}
+    {touched && error && <div className="help is-danger">{error}</div>}
   </div>
 );
 

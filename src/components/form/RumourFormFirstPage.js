@@ -21,6 +21,7 @@ const placesOptions = [
   "Newspaper",
   "School",
   "Religious Leader",
+  "Neighbours/Community",
   "Other"
 ]
   .sort()
@@ -32,7 +33,7 @@ let RumourFormFirstPage = (
   <form onSubmit={
     handleSubmit
   } className="scrollable is-fullheight">
-    <SectionHeader />
+    <SectionHeader previousPage={() => { } } />
     <div className="pure-g grid-container">
       <div className="pure-u-1 fullw-input-container row" style={{ padding: 0 }}>
         <Field name="rumourName" component="input" type="text" placeholder="Enter a name for this rumor" className="fullw-input" />
@@ -57,29 +58,31 @@ let RumourFormFirstPage = (
         <Field name="rumourTags" defaultValue={[]} component={RumourTags} />
       </RowField>
       <RowField text="Where did you hear it?">
-        <Field name="place-heard" className="expander" component={
+        <Field name="placeHeard" className="expander" component={
           renderSelectField
         }>
+
+          <option key="no-region" selected></option>
           {placesOptions}
         </Field>
       </RowField>
-    </div>
-    <div className="pure-u-1 pure-u-md-1-2 footer">
-      <div className="column">
-        <button className={
-          classNames({
-            "is-button": true,
-            "is-fullwidth": true,
-            "is-disabled": submitting
-          })
-        } disabled={submitting} type="submit">Next</button>
+      <div className="pure-u-1 pure-u-md-1-2 footer">
+        <div className="column">
+          <button className={
+            classNames({
+              "is-button": true,
+              "is-fullwidth": true,
+              "is-disabled": submitting
+            })
+          } disabled={submitting} type="submit">Next</button>
+        </div>
       </div>
     </div>
   </form>;
 
 RumourFormFirstPage = reduxForm({
   form: "wizard",
-  // validate
+  validate,
   destroyOnUnmount: false
 })(RumourFormFirstPage);
 
@@ -89,4 +92,4 @@ RumourFormFirstPage = connect(
   state => ({ selectedRegion: selector(state, "region") })
 )(RumourFormFirstPage);
 
-export default RumourFormFirstPage
+export default RumourFormFirstPage;

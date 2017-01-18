@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { WithContext as ReactTags } from 'react-tag-input';
+import { WithOutContext as ReactTags } from 'react-tag-input';
 
 const tagClassNames = {
   tagInputField: 'input is-medium is-fullwidth',

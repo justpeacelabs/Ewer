@@ -1,4 +1,5 @@
 export const REGIONS = [
+  "Nationwide",
   "Sagaing",
   "Tanintharyi",
   "Bago",
