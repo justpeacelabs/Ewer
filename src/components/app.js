@@ -1,9 +1,11 @@
 import React from 'react';
 import classnames from 'classnames';
+import { connect } from "react-redux";
+import { isAuthenticated } from './auth';
 import '../style/style.css';
 import '../style/menu.css';
 
-export default class App extends React.Component {
+class _App extends React.Component {
   constructor() {
     super();
 
@@ -20,10 +22,12 @@ export default class App extends React.Component {
   }
 
   render() {
-    return (
-      <div id="layout" className={classnames({
-        active: this.state.activeMenu
-      })}>
+    const layout = isAuthenticated(this.props.state) ? (
+      <div id="layout" className={
+        classnames({
+          active: this.state.activeMenu
+        })
+      } >
         <div id="menuLink" className="menu-link" onClick={this.toggle}>
           <span></span>
         </div>
@@ -48,6 +52,26 @@ export default class App extends React.Component {
           {this.props.children}
         </div>
       </div>
-    );
+    )
+      :
+      (
+        <div id="app" className="container" onClick={this.toggle.bind(this, false)}>
+          {this.props.children}
+        </div>
+      );
+
+    return layout;
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    state
+  };
+};
+
+const App = connect(
+  mapStateToProps
+)(_App);
+
+export default App;
