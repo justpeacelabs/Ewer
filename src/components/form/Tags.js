@@ -9,14 +9,14 @@ const tagClassNames = {
   selected: 'selected-tags-container'
 };
 
-const RumourTags = ({input, defaultValue}) => {
+const RumourTags = ({input, placeholder, defaultValue}) => {
   let suggestions = [];
   let val = input.value || defaultValue;
 
   return (
     <ReactTags tags={val}
       classNames={tagClassNames}
-      let placeholder = "Add a new tag (3 max.)"
+      let placeholder = {placeholder}
       delimiters={[188, 13, 9]}
       suggestions={suggestions}
       removeComponent={RemoveComponent}

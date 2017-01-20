@@ -6,7 +6,6 @@ import {
   SIGN_IN_SUCCESS,
   SIGN_OUT_SUCCESS
 } from './action-types';
-import { push } from 'react-router-redux';
 import { Router, browserHistory } from 'react-router';
 
 function authenticate(provider) {
@@ -49,7 +48,6 @@ export function signInWithEmailAndPassword(credentials) {
       .signInWithEmailAndPassword(email, password)
       .then(user => {
         dispatch(signInSuccess(user));
-        // dispatch(push('/'));
         browserHistory.replace('/');
       })
       .catch(error => dispatch(signInError(error)));

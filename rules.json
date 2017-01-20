@@ -1,0 +1,91 @@
+{
+  "rules": {
+    "rumours_test": {
+      "$rumour_id": {
+        ".validate": "newData.hasChildren(['placeHeard', 'region', 'township', 'uid', 'description', 'rumourDate', 'hidden', 'timestamp'])",
+        "placeHeard": {
+          ".validate": "newData.isNumber()"
+        },
+        "region": {
+          ".validate": "newData.isNumber()"
+        },
+        "township": {
+          ".validate": "newData.isNumber()"
+        },
+        "uid": {
+          ".validate": "newData.isString()"
+        },
+        "description": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 1000"
+        },
+        "rumourTags": {
+          "$key1": {
+            ".validate": "newData.hasChildren()"
+          },
+          ".validate": "newData.hasChildren()"
+        },
+        "rumourDate": {
+          ".validate": "newData.isNumber()"
+        },
+        "hidden": {
+          ".validate": "newData.isBoolean()"
+        },
+        "timestamp": {
+          ".validate": "newData.isNumber() && newData.val() == now"
+        },
+        "$other": {
+          ".validate": "false"
+        },
+        ".write": "data.val() == null && auth != null || data.val() != null && newData.val() != null && (auth != null && auth.uid == data.child('uid').val())",
+        ".read": "auth != null"
+      }
+    },
+    "user-rumours-test": {
+      "$uid": {
+        ".validate": "newData.hasChildren(['placeHeard', 'region', 'township', 'uid', 'description', 'rumourDate', 'hidden', 'timestamp'])",
+        "placeHeard": {
+          ".validate": "newData.isNumber()"
+        },
+        "region": {
+          ".validate": "newData.isNumber()"
+        },
+        "township": {
+          ".validate": "newData.isNumber()"
+        },
+        "uid": {
+          ".validate": "newData.isString()"
+        },
+        "description": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 1000"
+        },
+        "rumourTags": {
+          "$key1": {
+            ".validate": "newData.hasChildren()"
+          },
+          ".validate": "newData.hasChildren()"
+        },
+        "rumourDate": {
+          ".validate": "newData.isNumber()"
+        },
+        "hidden": {
+          ".validate": "newData.isBoolean()"
+        },
+        "timestamp": {
+          ".validate": "newData.isNumber() && newData.val() == now"
+        },
+        "$other": {
+          ".validate": "false"
+        },
+        ".read": "auth != null && auth.uid == $uid"
+      }
+    },
+    "tags-test": {
+      "$tag": {
+        "rumour-key": {
+          ".validate": "newData.isBoolean()",
+          ".read": "auth != null"
+        }
+      }
+    }
+  }
+}

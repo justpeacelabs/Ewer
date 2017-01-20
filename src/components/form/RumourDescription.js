@@ -24,11 +24,11 @@ export default class RumourDescription extends React.Component {
 
   render() {
     const charsLeft = MAX_LENGTH - this.state.charsWritten;
-    const {input, meta: {touched, error}} = this.props;
+    const {input, placeholder, charsLeftText, meta: {touched, error}} = this.props;
     return (
       <div className="is-fullheight" >
         <TextareaAutosize
-          placeholder="Try to be as clear as possible"
+          placeholder={placeholder}
           className={classnames({
             'is-danger-field': !!(touched && error),
             'is-fullheight': true
@@ -44,7 +44,7 @@ export default class RumourDescription extends React.Component {
           />
         {touched && error && <div className="help is-danger">{error}</div>}
         <div className="is-pulled-right">
-          {charsLeft} characters left
+          {charsLeft} {charsLeftText}
         </div>
       </div >);
   }

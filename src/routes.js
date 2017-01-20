@@ -1,7 +1,7 @@
 import { isAuthenticated } from './components/auth';
 import App from './components/app';
 import SignIn from './pages/sign-in';
-import AddRumour from './components/form/rumour-form';
+import ConnectedReportRumour from './components/form/rumour-form';
 
 export const paths = {
   ROOT: '/',
@@ -34,7 +34,7 @@ export const getRoutes = getState => {
     childRoutes: [
       {
         indexRoute: {
-          component: AddRumour,
+          component: ConnectedReportRumour,
           onEnter: requireAuth(getState)
         }
       },

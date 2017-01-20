@@ -1,7 +1,11 @@
+import {EN as L} from "../../lang";
+
+const locale = L.UI.ADD_RUMOUR;
+
 const validate = values => {
   const errors = {};
   if (!values.region) {
-    errors.region = "Required field";
+    errors.region = locale.form.region.validate;
   }
 
   if (
@@ -9,15 +13,15 @@ const validate = values => {
     values.region.toLowerCase() === "bago" &&
     !values.township
   ) {
-    errors.township = "Required field";
+    errors.township = locale.form.township.validate;
   }
 
   if (!values.rumourDate) {
-    errors.rumourDate = "Approximate date required";
+    errors.rumourDate = locale.form.date.validate;
   }
 
   if (!values['placeHeard']) {
-    errors.placeHeard = "Approximate date required";
+    errors.placeHeard = locale.form.place.validate;
   }
 
   /*

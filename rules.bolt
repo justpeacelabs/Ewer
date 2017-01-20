@@ -1,0 +1,49 @@
+path /rumours_test/{rumour_id} is Rumour {
+  read() { isSignedIn() }
+  create() { isSignedIn() }
+  update() { isCurrentUser(prior(this).uid) }
+}
+
+path /user-rumours-test/{uid} is Rumour {
+  read() { isCurrentUser(uid) }
+}
+
+path /tags-test/{tag}/rumour-key is Boolean {
+  read() { isSignedIn()  }
+}
+
+type Rumour {
+  placeHeard: Number,
+  region: Number,
+  township: Number,
+  uid: String,
+  description: LongString,
+  rumourTags: Object[],
+  rumourDate: Number,
+  hidden: Boolean,
+  timestamp: CurrentTimestamp,
+}
+
+getRoomName(id) { prior(root.room_names[id]) }
+
+type LongString extends String {
+  validate() { this.length > 0 && this.length < 1000 }
+}
+
+//
+// Helper Types
+//
+type CurrentTimestamp extends Number {
+  validate() { this == now }
+}
+
+type ShortString extends String {
+  validate() { this.length > 0 && this.length < 50 }
+}
+
+//
+// Helper Functions
+//
+isCurrentUser(uid) { isSignedIn() && auth.uid == uid }
+isSignedIn() { auth != null }
+createOnly(value) { prior(value) == null && value != null }

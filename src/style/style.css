@@ -121,6 +121,14 @@ input[type="text"]:focus {
     background-color: #FFAB40;
     color: #E65100;
     text-transform: uppercase;
+    height: 100%;
+    text-align: center;
+}
+
+.is-button:disabled {
+    background: #ddd;
+    border: solid 5px #ddd;
+    color: #999;
 }
 
 .header {

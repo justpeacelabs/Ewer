@@ -6,6 +6,10 @@ import { REGIONS, TOWNSHIPS } from "./regions";
 import SectionHeader from "./sectionHeader";
 import RowField from "./RowField";
 import classnames from "classnames";
+import { submitFormValues } from "../firebase";
+import { EN as L } from "../../lang";
+
+const locale = L.UI.ADD_RUMOUR;
 
 let RumourFormThirdPage = props => {
   const {
@@ -15,63 +19,67 @@ let RumourFormThirdPage = props => {
     selectedTags,
     description,
     handleSubmit,
+    pristine,
     submitting,
     previousPage
   } = props;
 
   const tags = selectedTags ? selectedTags.map(t => t.text) : [];
-  console.log(tags)
   return (
-    <form onSubmit={handleSubmit} className="scrollable is-fullheight">
-      <SectionHeader previousPage={previousPage} />
+    <form
+      onSubmit={handleSubmit(submitFormValues)}
+      className="scrollable is-fullheight">
+      <SectionHeader title={locale.header.title} previousPage={previousPage} />
       <div
         className="pure-g grid-container"
-        style={{ height: "calc(100% - 95px)" }}
-        >
-        <RowField text="Review your report" className="is-fullheight">
+        style={{ height: "calc(100% - 95px)" }}>
+        <RowField text={locale.form.review.title} className="is-fullheight">
           <div class="review scrollable is-fullheight">
             <p>
-              Please review your report and make sure it is correct before you send it
+              {locale.form.review.text}
             </p>
             <hr />
-            <h4> Region</h4>
+            <h4>{locale.form.region.title}</h4>
             <div>{selectedRegion}</div>
             {selectedTownship && (
               <div>
-                <h4>TownShip</h4>
+                <h4>{locale.form.township.title}</h4>
                 <div>{selectedTownship}</div>
               </div>
             )}
-            <h4> Date</h4>
+            <h4>{locale.form.date.title}</h4>
             <div>{selectedDate}</div>
             {tags.length ? (
               <div>
-                <h4> Tags</h4>
+                <h4>{locale.form.tags.title}</h4>
                 <ul>
                   <div>{tags.map(t => <li>{t}</li>)}</div>
                 </ul>
               </div>
-            ) : ''}
-            <h4> Description</h4>
+            ) : ""}
+            <h4>{locale.form.description.title}</h4>
             <div>{description}</div>
           </div>
         </RowField>
         <div className="pure-u-1 pure-u-md-1-2 footer">
-          <div className="column">
-            <button
-              className={
-                classnames({
-                  "is-button": true,
-                  "is-fullwidth": true,
-                  "is-disabled": submitting
-                })
-              }
-              disabled={submitting}
-              type="submit"
-              >
-              Report
-            </button>
-          </div>
+          <button
+            className={
+              classnames({
+                "is-button": true,
+                "is-fullwidth": true,
+                "is-disabled": pristine || submitting
+              })
+            }
+            disabled={pristine || submitting}
+            type="submit"
+            >
+            {submitting ? (
+              <div>
+                <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+                <span class="sr-only">Submitting...</span>
+              </div>
+            ) : locale.submitBtn.title}
+          </button>
         </div>
       </div>
     </form>
@@ -82,9 +90,16 @@ const selector = formValueSelector("wizard");
 
 RumourFormThirdPage = reduxForm({
   form: "wizard",
-  // validate
   destroyOnUnmount: false
 })(RumourFormThirdPage);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    gotoPage: (page) => {
+      dispatch(gotoPage(page));
+    }
+  };
+};
 
 RumourFormThirdPage = connect(
   state =>

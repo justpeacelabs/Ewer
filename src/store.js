@@ -1,38 +1,29 @@
-import { createStore } from 'redux';
-  /*
-const rumour = {
-        id,
-        title: '',
-        content: '',
-        tags: [],
-        geo: {
-                town, province, region, country
-        },
-        likes: 0
-};
-*/
-let ACTIONS = {
-  ADD_TODO: ({ todos, ...state }, { text }) => ({
-    todos: [...todos, {
-      id: Math.random().toString(36).substring(2),
-      text
-    }],
-    ...state
-  }),
+import { applyMiddleware, compose, createStore, combineReducers } from 'redux';
+import { reducer as reduxFormReducer } from 'redux-form';
+import { routerMiddleware, routerReducer } from 'react-router-redux';
+import thunk from 'redux-thunk';
+import { initAuth, authReducer } from './components/auth';
+import appReducer from './reducers';
 
-  REMOVE_TODO: ({ todos, ...state }, { todo }) => ({
-    todos: todos.filter( i => i!==todo ),
-    ...state
-  })
-};
+const reducer = combineReducers({
+  form: reduxFormReducer,
+  auth: authReducer,
+  routing: routerReducer,
+  app: appReducer
+});
 
-const INITIAL = {
-  rumours: []
-};
+let middleware = applyMiddleware(thunk);
 
-export default createStore((state, action) => {
-  if (action && ACTIONS[action.type]) {
-    return ACTIONS[action.type](state, action);
+if (process.env.NODE_ENV !== 'production') {
+  // configure redux-devtools-extension
+  // @see https://github.com/zalmoxisus/redux-devtools-extension
+  const devToolsExtension = window.devToolsExtension;
+  if (typeof devToolsExtension === 'function') {
+    middleware = compose(middleware, devToolsExtension());
   }
-  return state;
-}, INITIAL, window.devToolsExtension && window.devToolsExtension());
+}
+
+const INITIAL_STATE = {};
+
+const store = createStore(reducer, INITIAL_STATE, middleware);
+export default store;
