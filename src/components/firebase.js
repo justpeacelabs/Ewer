@@ -18,6 +18,9 @@ export function submitFormValues(values) {
 
   const postData = {
     ...values,
+    region: parseInt(values.region, 10),
+    township: parseInt(values.township, 10),
+    placeHeard: parseInt(values.placeHeard, 10),
     timestamp: firebase.database.ServerValue.TIMESTAMP,
     rumourTags: values.rumourTags.map(t => t.text),
     rumourDate: (new Date(values.rumourDate)).getTime(),
@@ -25,9 +28,16 @@ export function submitFormValues(values) {
     hidden: false
   };
 
+  console.log(JSON.stringify(postData, null, 2));
+
+  let postDataNoUid = { // No need for uid in user table
+    ...postData
+  };
+  delete postDataNoUid.uid;
+
   let updates = {};
   updates[`/${TABLE_RUMOURS}/${newRumourKey}`] = postData;
-  updates[`/${TABLE_USER_RUMOURS}/${uid}/${newRumourKey}`] = postData;
+  updates[`/${TABLE_USER_RUMOURS}/${uid}/${newRumourKey}`] = postDataNoUid;
 
   postData.rumourTags.forEach(tagName => {
     updates[`/${TABLE_TAGS}/${tagName}/${newRumourKey}`] = true;
@@ -36,7 +46,7 @@ export function submitFormValues(values) {
   return firebase.database().ref().update(updates).then(() => {
     store.dispatch(gotoPage(4));
   }, (e) => {
-    throw new SubmissionError({  _error: e });
+    throw new SubmissionError({ _error: e });
   });
 }
 

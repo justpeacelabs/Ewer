@@ -17,6 +17,7 @@ let RumourFormThirdPage = props => {
     selectedTownship,
     selectedDate,
     selectedTags,
+    selectedPlace,
     description,
     handleSubmit,
     pristine,
@@ -40,11 +41,11 @@ let RumourFormThirdPage = props => {
             </p>
             <hr />
             <h4>{locale.form.region.title}</h4>
-            <div>{selectedRegion}</div>
+            <div>{L.REGIONS[selectedRegion].name}</div>
             {selectedTownship && (
               <div>
                 <h4>{locale.form.township.title}</h4>
-                <div>{selectedTownship}</div>
+                <div>{L.TOWNSHIPS[selectedRegion][selectedTownship].name}</div>
               </div>
             )}
             <h4>{locale.form.date.title}</h4>
@@ -57,6 +58,8 @@ let RumourFormThirdPage = props => {
                 </ul>
               </div>
             ) : ""}
+            <h4>{locale.form.place.title}</h4>
+            <div>{L.PLACES[selectedPlace].name}</div>
             <h4>{locale.form.description.title}</h4>
             <div>{description}</div>
           </div>
@@ -108,6 +111,7 @@ RumourFormThirdPage = connect(
       selectedTownship: selector(state, "township"),
       selectedDate: selector(state, "rumourDate"),
       selectedTags: selector(state, "rumourTags"),
+      selectedPlace: selector(state, "placeHeard"),
       description: selector(state, "description")
     })
 )(RumourFormThirdPage);

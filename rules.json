@@ -1,8 +1,11 @@
 {
   "rules": {
-    "rumours_test": {
+    "rumours-test": {
       "$rumour_id": {
-        ".validate": "newData.hasChildren(['placeHeard', 'region', 'township', 'uid', 'description', 'rumourDate', 'hidden', 'timestamp'])",
+        ".validate": "newData.hasChildren(['placeHeard', 'region', 'uid', 'description', 'rumourDate', 'hidden', 'timestamp'])",
+        "rumourName": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 100"
+        },
         "placeHeard": {
           ".validate": "newData.isNumber()"
         },
@@ -20,7 +23,7 @@
         },
         "rumourTags": {
           "$key1": {
-            ".validate": "newData.hasChildren()"
+            ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 100"
           },
           ".validate": "newData.hasChildren()"
         },
@@ -42,49 +45,18 @@
     },
     "user-rumours-test": {
       "$uid": {
-        ".validate": "newData.hasChildren(['placeHeard', 'region', 'township', 'uid', 'description', 'rumourDate', 'hidden', 'timestamp'])",
-        "placeHeard": {
-          ".validate": "newData.isNumber()"
-        },
-        "region": {
-          ".validate": "newData.isNumber()"
-        },
-        "township": {
-          ".validate": "newData.isNumber()"
-        },
-        "uid": {
-          ".validate": "newData.isString()"
-        },
-        "description": {
-          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 1000"
-        },
-        "rumourTags": {
-          "$key1": {
-            ".validate": "newData.hasChildren()"
-          },
-          ".validate": "newData.hasChildren()"
-        },
-        "rumourDate": {
-          ".validate": "newData.isNumber()"
-        },
-        "hidden": {
-          ".validate": "newData.isBoolean()"
-        },
-        "timestamp": {
-          ".validate": "newData.isNumber() && newData.val() == now"
-        },
-        "$other": {
-          ".validate": "false"
-        },
+        ".write": "data.val() == null && (auth != null && auth.uid == $uid) || data.val() != null && newData.val() != null && (auth != null && auth.uid == $uid)",
         ".read": "auth != null && auth.uid == $uid"
       }
     },
     "tags-test": {
       "$tag": {
-        "rumour-key": {
-          ".validate": "newData.isBoolean()",
-          ".read": "auth != null"
-        }
+        "$key2": {
+          ".validate": "newData.isBoolean()"
+        },
+        ".validate": "newData.hasChildren()",
+        ".read": "auth != null",
+        ".write": "auth != null"
       }
     }
   }

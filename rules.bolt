@@ -1,33 +1,31 @@
-path /rumours_test/{rumour_id} is Rumour {
+path /rumours-test/{rumour_id} is Rumour {
   read() { isSignedIn() }
   create() { isSignedIn() }
   update() { isCurrentUser(prior(this).uid) }
 }
 
-path /user-rumours-test/{uid} is Rumour {
+path /user-rumours-test/{uid} {
   read() { isCurrentUser(uid) }
+  create() { isCurrentUser(uid) }
+  update() { isCurrentUser(uid) }
 }
 
-path /tags-test/{tag}/rumour-key is Boolean {
+path /tags-test/{tag} is Map<String, Boolean> {
   read() { isSignedIn()  }
+  write() { isSignedIn()  }
 }
 
 type Rumour {
+  rumourName: ShortString | Null,
   placeHeard: Number,
   region: Number,
-  township: Number,
+  township: Number | Null,
   uid: String,
   description: LongString,
-  rumourTags: Object[],
+  rumourTags: ShortString[] | Null,
   rumourDate: Number,
   hidden: Boolean,
-  timestamp: CurrentTimestamp,
-}
-
-getRoomName(id) { prior(root.room_names[id]) }
-
-type LongString extends String {
-  validate() { this.length > 0 && this.length < 1000 }
+  timestamp: CurrentTimestamp
 }
 
 //
@@ -37,8 +35,12 @@ type CurrentTimestamp extends Number {
   validate() { this == now }
 }
 
+type LongString extends String {
+  validate() { this.length > 0 && this.length < 1000 }
+}
+
 type ShortString extends String {
-  validate() { this.length > 0 && this.length < 50 }
+  validate() { this.length > 0 && this.length < 100 }
 }
 
 //

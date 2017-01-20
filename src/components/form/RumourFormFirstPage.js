@@ -12,9 +12,12 @@ import validate from "./validate";
 import renderSelectField from "./selectField";
 import SectionHeader from "./sectionHeader";
 
-const regionOptions = L.REGIONS.map(r => <option key={r}>{r}</option>);
-const placesOptions = L.PLACES.sort()
-  .map(p => <option key={p}>{p}</option>);
+const regionOptions = Object.keys(L.REGIONS).map(key => {
+  return <option key={key} value={key}>{L.REGIONS[key].name}</option>;
+});
+const placesOptions = Object.keys(L.PLACES).map(key => {
+  return <option key={key} value={key}>{L.PLACES[key].name}</option>;
+});
 
 const locale = L.UI.ADD_RUMOUR;
 
@@ -44,9 +47,9 @@ let RumourFormFirstPage = (
             <Field name="township" component={renderSelectField}>
               <option key="no-township" selected></option>
               {
-                L.TOWNSHIPS[selectedRegion].map(
-                  t => <option key={t}>{t}</option>
-                )
+                Object.keys(L.TOWNSHIPS[selectedRegion]).map(key => {
+                  return <option key={key} value={key}>{L.TOWNSHIPS[selectedRegion][key].name}</option>;
+                })
               }
             </Field>
           </RowField>
