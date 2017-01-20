@@ -25,7 +25,7 @@ let RumourFormFirstPage = (
   {selectedRegion, handleSubmit, pristine, reset, submitting}
 ) => (
     <form onSubmit={handleSubmit} className="scrollable is-fullheight">
-      <SectionHeader title={locale.header.title} previousPage={() => { } } />
+      <SectionHeader title={locale.header.title} />
       <div className="pure-g grid-container">
         <div className="pure-u-1 fullw-input-container row" style={{ padding: 0 }}>
           <Field

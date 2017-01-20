@@ -6,7 +6,7 @@ export const EN = {
       },
       form: {
         name: {
-          placeholder: "Enter a name for this rumor"
+          placeholder: "Enter a name for this rumour"
         },
         region: {
           title: "State/Region",

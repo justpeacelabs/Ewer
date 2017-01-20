@@ -11,8 +11,8 @@ path /user-rumours-test/{uid} {
 }
 
 path /tags-test/{tag} is Map<String, Boolean> {
-  read() { isSignedIn()  }
-  write() { isSignedIn()  }
+  read() { isSignedIn() }
+  write() { isSignedIn() }
 }
 
 type Rumour {
